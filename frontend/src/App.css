@@ -1,0 +1,189 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  box-shadow: 2px 8px 10px rgb(3 3 3 / 15%);
+  border-radius: 30px;
+  background-color:azure;
+}
+
+.chat-container {
+  width: 350px;
+  display: flex;
+  z-index: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75vh;
+  /* border: 1px solid #d9d9d9; */
+}
+.chat-container.active {
+  display: block;
+}
+
+.messages {
+  max-height: auto;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.message {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.user {
+  text-align: left;
+}
+
+.bot {
+  text-align: left;
+}
+
+.input-container {
+  display: flex;
+  padding: 10px;
+  text-align: left;
+  align-items: flex-start;
+}
+input {
+  display: flex;
+}
+
+textarea[type="text"] {
+  flex: 1;
+  display: flex;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #999595;
+  background-color: #a5a0a0;
+  color: white;
+  max-height: auto;
+  width: 198px;
+}
+input {
+  flex: 1;
+  padding: 8px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  border: 1px solid #999595;
+  margin-right: 8px;
+  background-color: #a5a0a0;
+  color: white;
+  max-height: auto;
+}
+
+.btnSubmit {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+}
+table {
+  border-collapse: collapse;
+  overflow-y: auto;
+}
+td {
+  padding: 10px;
+  text-align: left;
+}
+th {
+  padding: 10px;
+  text-align: left;
+}
+.New_pop {
+  width: 70%;
+  border-collapse: collapse;
+  margin-left: 10px;
+  border: 1px solid grey;
+  margin-top: 10px;
+}
+.search-bar {
+  display: flex;
+}
+.search_input {
+  padding: 4px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.btnSerach {
+  height: 34px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.close {
+  position: relative;
+  top: 5px;
+  cursor: pointer;
+  text-align: left;
+}
+.btnAdmin {
+  color: #08e908 !important;
+  width: 60px !important;
+  height: 36px !important;
+  border-radius: 5px !important;
+  cursor: pointer;
+  border: 1px solid #d7d7d7 !important;
+  background-color: #ffffff !important;
+}
+.btnAdmin:hover {
+  background-color: #999595;
+  border: none;
+}
+.model_main .modal-content {
+  width: unset !important;
+}
+.conversation-table {
+  width: 500px;
+  height: 200px;
+  overflow-y: auto;
+}
+.Modal_header .modal-header {
+  background-color: #d8d3d3;
+}
+.AdminPage_Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mtl-5{
+  margin-top: 5px !important;
+} 
+
+.date-container {
+  display: flex;
+}
+.custom_pagination {
+  display: flex;
+  justify-content: end;
+}
+.nmp{
+  margin: 0;
+  padding: 0;
+}
+.Date--picker-range{
+  width: 130px;
+}
+.txt-right{
+  display: flex;
+justify-content: end;
+
+}
+.item-center{
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+.ptpb-20{
+  padding: 20px;
+}
+.btnDateSelect{
+  background-color: darkgray;
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

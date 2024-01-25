@@ -1,0 +1,86 @@
+.wrapper {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+
+.login-container {
+  z-index: 1;
+  position: absolute;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  display: flex;
+  margin-right: 85px;
+  margin-top: 125px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  
+}
+
+.login-container h1 {
+  margin-bottom: 20px;
+}
+
+.login-container button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+/* Chat window header styles */
+.chat-window-header.default-theme-window-header {
+  background: linear-gradient(
+    226.1deg,
+    rgb(51, 102, 255) 0%,
+    rgb(51, 102, 255) 101.24%
+  );
+}
+
+.previewText {
+  display: none;
+  color: rgb(255, 255, 255);
+}
+
+/* Icons styles */
+.icons {
+  padding-right: 5px;
+  display: none;
+}
+.icon-Close-Chat-new {
+  color: rgb(255, 255, 255);
+  background: -webkit-linear-gradient(
+    45deg,
+    rgb(51, 102, 255),
+    rgb(51, 102, 255)
+  );
+}
+
+/* Agent profile image styles */
+.agent-profile-img {
+  background-image: url("https://file.revechat.com/bot/avatar/7871954-1cab1798-623e-4183-a039-8bcc718efe7f.gif");
+}
+
+/* Agent profile image modern styles */
+.agent-profile-img-modern {
+  display: none;
+}
+
+/* Support agent name styles */
+.support-agent-name {
+  color: rgb(51, 102, 255);
+}
+.support-agent-designation {
+  padding-left: 10px;
+}
