@@ -8,6 +8,10 @@ import {
   Strategy as JWTStrategy,
   ExtractJwt,
 } from 'passport-jwt';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const upload = multer();
 
 const PORT = 10000;
@@ -21,6 +25,7 @@ app.use(cors());
 app.use(passport.initialize());
 
 
+
 app.post("/completions", completions);
 app.get("/completions/:username",completionsUsername);
 app.get("/api/users",  users);
@@ -28,6 +33,13 @@ app.post("/api/saveUsersData", upload.none(),  saveUserData );
 app.get("/api/search",  searchQuery);
 
 
+// frontend build file api for show data data on backend browser  
+const buildPath = join(__dirname, '../frontend', 'build');
+app.use(express.static(buildPath));
+app.get('*', (req, res) => {
+  res.sendFile(join(buildPath, 'index.html'));
+});
+// end this api 
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
