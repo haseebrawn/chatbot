@@ -45,11 +45,11 @@ const AdminPage = () => {
     let dateA = new Date(startDate);
     let dateB = new Date(endDate);
     if (dateA < dateB) {
-        isDateRangeValid = true;
+      isDateRangeValid = true;
     }
     if (!isDateRangeValid) {
       // alert('Selected Range is invalid');
-      setEndDate('');
+      setEndDate("");
     }
   }, [startDate, endDate]);
 
@@ -71,7 +71,7 @@ const AdminPage = () => {
     fetchData();
   }, []);
 
-  // filtered users by searchQuery 
+  // filtered users by searchQuery
   useEffect(() => {
     // Update filteredUsers whenever users or searchQuery changes
     const filteredData = users.filter((user) =>
@@ -80,7 +80,7 @@ const AdminPage = () => {
     setFilteredUsers([...filteredData]);
     setCurrentPage(1);
   }, [users, searchQuery]);
-  
+
   const handleStartDateChange = (newStartDate) => {
     setStartDate(newStartDate);
   };
@@ -92,35 +92,29 @@ const AdminPage = () => {
   const handleFilterByDateRange = () => {
     let formattedStartDate;
     let formattedEndDate;
-    if(startDate){
-
-      formattedStartDate = new Date(startDate).toISOString().split('T')[0];
+    if (startDate) {
+      formattedStartDate = new Date(startDate).toISOString().split("T")[0];
     }
-    if(endDate){
-
-    formattedEndDate = new Date(endDate).toISOString().split('T')[0];
+    if (endDate) {
+      formattedEndDate = new Date(endDate).toISOString().split("T")[0];
     }
-  
+
     // Validate that end date is greater than or equal to start date
     if (formattedEndDate < formattedStartDate) {
       console.log("End date should be greater than or equal to start date");
       return;
     }
-  
+
     // Filter users based on the date range
     const usersInDateRange = users.filter((user) => {
-      const userDate = user.date.split('T')[0];
-  
-      return (
-        (userDate >= formattedStartDate) && (userDate <= formattedEndDate)
-      );
+      const userDate = user.date.split("T")[0];
+
+      return userDate >= formattedStartDate && userDate <= formattedEndDate;
     });
-  setStartDate("");
-  setEndDate("");
+    setStartDate("");
+    setEndDate("");
     setUsers(usersInDateRange);
   };
-
-  
 
   const toggleSortOrder = (field) => {
     setSortOrders((prevSortOrders) => ({
@@ -156,7 +150,6 @@ const AdminPage = () => {
       setUsers(searchData);
     } catch (error) {
       console.error("Error fetching search data:", error);
-
     }
   };
 
@@ -170,37 +163,38 @@ const AdminPage = () => {
     <Container>
       <CRow className="mtl-5">
         <CCol xs={12} md={12} lg={12}>
-          <CRow className="ptpb-20">
-            <CCol xs={2}></CCol>
-            <CCol className="txt-right" xs={3}>
-            <div className="txt-right">
-              <CustomizableField
-                inputType='date'
-                inputValue={startDate}
-                inputPlaceholder=''
-                onChangeEvent={handleStartDateChange}
-                minDate={startDate}
+          <CRow className="ptpb-20 date-range">
+            <CCol lg={2}></CCol>
+            <CCol className="txt-right" xs={6} lg={3}>
+              <div className="txt-right">
+                <CustomizableField
+                  inputType="date"
+                  inputValue={startDate}
+                  inputPlaceholder=""
+                  onChangeEvent={handleStartDateChange}
+                  minDate={startDate}
+                />
+              </div>
+            </CCol>
+            <CCol xs={6} lg={3}>
+              <div>
+                <CustomizableField
+                  inputValue={endDate}
+                  inputType="date"
+                  inputPlaceholder=""
+                  onChangeEvent={handleEndDateChange}
+                />
+              </div>
+            </CCol>
+            <CCol xs={2} lg={2} className="txt-right justify-content-lg-start mt-3 mt-lg-0">
+              <Button
+                clickHandler={handleFilterByDateRange}
+                stylingClass="btnDateSelect"
+                title="Search"
               />
-           </div>
             </CCol>
-            <CCol xs={3}>
-            <div>
-              <CustomizableField
-                inputValue={endDate}
-                inputType='date'
-                inputPlaceholder=''
-                onChangeEvent={handleEndDateChange}
-                
-              />
-            </div>
-            </CCol>
-            <CCol xs={2} className="item-center"> 
-            <Button clickHandler={handleFilterByDateRange}         stylingClass='btnDateSelect'
-            title="Search"
-            />
-            </CCol>
-            <CCol xs={2}></CCol>
-          </CRow>    
+            <CCol lg={2}></CCol>
+          </CRow>
         </CCol>
       </CRow>
       <CRow className="mtl-5">
@@ -213,30 +207,30 @@ const AdminPage = () => {
                 inputValue={searchQuery}
                 onChangeEvent={handleSearch}
                 inputPlaceholder="Search users..."
-      />
+              />
             </CCardHeader>
-            <CTable>
+            <CTable responsive>
               <CTableHead>
                 <CTableRow>
                   <CTableHeaderCell
-                    scope="col"
+                   scope="row"
                     onClick={() => handleSort("username")}
                   >
                     Name <FontAwesomeIcon icon={faSort} />
                   </CTableHeaderCell>
                   <CTableHeaderCell
-                    scope="col"
+                    scope="row"
                     onClick={() => handleSort("email")}
                   >
                     Email <FontAwesomeIcon icon={faSort} />
                   </CTableHeaderCell>
                   <CTableHeaderCell
-                    scope="col"
+                 scope="row"
                     onClick={() => handleSort("date")}
                   >
                     Date <FontAwesomeIcon icon={faSort} />
                   </CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Conversation</CTableHeaderCell>
+                  <CTableHeaderCell scope="row">Conversation</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>

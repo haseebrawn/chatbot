@@ -61,7 +61,10 @@ function MyVerticallyCenteredModal(props) {
                   {" "}
                   <p>{data.content}</p>
                 </strong>
-                <p>{data.response}</p>
+                {data.response.split("\n").map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+                {/* <p>{data.response}</p> */}
               </div>
             ))}
           </div>
