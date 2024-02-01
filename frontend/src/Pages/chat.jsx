@@ -6,22 +6,30 @@ const Chat = ({ isLoggedIn }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      // Enter key without Shift pressed, send message
+      e.preventDefault(); // Prevents the default behavior of the Enter key
+      sendMessage(inputMessage);
+      setInputMessage("");
+    }
+  }
+
   const sendMessage = async () => {
     try {
-
-        // Check if the user is logged in before sending a message
-        if (!isLoggedIn) {
-          console.log("User not logged in. Cannot send message.");
-          return;
-        }
-
+      // Check if the user is logged in before sending a message
+      if (!isLoggedIn) {
+        console.log("User not logged in. Cannot send message.");
+        return;
+      }
+  
       const username = localStorage.getItem("username");
       const email = localStorage.getItem("email");
       const response = await axios.post(
         "http://localhost:10000/completions",
-
         {
-          model: "gpt-3.5-turbo", // Model name as per your backend requirement
+          model: "gpt-3.5-turbo",
           messages: [
             {
               role: "system",
@@ -32,8 +40,17 @@ const Chat = ({ isLoggedIn }) => {
           email: email,
         }
       );
-      const botResponse = JSON.stringify(response.data.reply);
-      // console.log(botResponse);
+      
+      // Extract the bot response from the API response
+      const botResponse = response.data.reply;
+      console.log(botResponse);
+  
+      // Split the bot response into paragraphs
+      const paragraphs = botResponse.split('\n');
+  
+      // Remove empty paragraphs
+      const filteredParagraphs = paragraphs.filter(paragraph => paragraph.trim() !== '');
+  
       // Prepare the data to send to the backend for storage
       const chatData = {
         query: inputMessage,
@@ -41,27 +58,43 @@ const Chat = ({ isLoggedIn }) => {
         username: username,
         email: email,
       };
+  
       // Send the chat data to the backend for storage
       localStorage.setItem("chatData", JSON.stringify(chatData));
-      setMessages([
-        ...messages,
+  
+      // Create a new array of message objects
+      const botMessages = [
         {
-          text: `User:
-           ${inputMessage}`,
+          text: `${inputMessage}`,
           type: "user",
         },
         {
-          text: `Chatbot:
-           ${botResponse}`,
+          text: filteredParagraphs.length > 0 ? (
+            <>
+              {filteredParagraphs[0]}
+              {filteredParagraphs.slice(1).map((paragraph, index) => (
+                <div key={index}>{paragraph}</div>
+              ))}
+            </>
+          ) : (
+            // Handle the case where there is no bot response
+            "No response from the bot."
+          ),
           type: "bot",
         },
-      ]);
+      ];
+  
+      // Update the messages state with the new messages
+      setMessages([...messages, ...botMessages]);
+  
       setInputMessage("");
     } catch (error) {
-      console.error("An Error occured:", error);
+      console.error("An Error occurred:", error);
     }
   };
-
+  
+  
+  
   const handleInputChange = (e) => {
     setInputMessage(e.target.value);
   };
@@ -132,10 +165,20 @@ const Chat = ({ isLoggedIn }) => {
         <div className="messages">
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`} id="msg_text">
-              {msg.text}
+              {(msg.type === 'user') ? <strong>User:</strong> : <strong>ChatBot:</strong>}
+               <br />
+                {msg.text}
+              </div>
+            ))}
+          </div>
+        {/* <div className="messages">
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.type}`} id="msg_text">
+              <strong>{msg.text.slice(0, 7)}</strong> 
+              {msg.text.slice(7)}
             </div>
           ))}
-        </div>
+        </div> */}
         {/* Conditionally render the input field based on login status */}
       {isLoggedIn && (
         <div className="input-container">
@@ -146,35 +189,13 @@ const Chat = ({ isLoggedIn }) => {
             cols="40"
             rows="1.4"
             onChange={handleInputChange}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                sendMessage();
-              }
-            }}
+            onKeyDown={handleKeyDown}
           />
           <button onClick={handleSubmit} className="btnSubmit">
             Send
           </button>
         </div>
       )}
-        {/* <div className="input-container">
-          <textarea
-            type="text"
-            placeholder="Search"
-            value={inputMessage}
-            cols="40"
-            rows="1.4"
-            onChange={handleInputChange}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                sendMessage();
-              }
-            }}
-          />
-          <button onClick={handleSubmit} className="btnSubmit">
-            Send
-          </button>
-        </div> */}
       </div>
     </div>
   );

@@ -5,17 +5,17 @@
   font-family: Arial, sans-serif;
   box-shadow: 2px 8px 10px rgb(3 3 3 / 15%);
   border-radius: 30px;
-  background-color:azure;
+  /* background-color:azure; */
 }
 
 .chat-container {
+  /* overflow-y: auto; */
   width: 350px;
   display: flex;
   z-index: 0;
   flex-direction: column;
   justify-content: space-between;
   height: 75vh;
-  /* border: 1px solid #d9d9d9; */
 }
 .chat-container.active {
   display: block;
@@ -57,10 +57,10 @@ textarea[type="text"] {
   padding: 8px;
   border-radius: 5px;
   border: 1px solid #999595;
-  background-color: #a5a0a0;
-  color: white;
+  color:black;
   max-height: auto;
   width: 198px;
+  margin-bottom: 8px;
 }
 input {
   flex: 1;
@@ -69,9 +69,9 @@ input {
   border-radius: 5px;
   border: 1px solid #999595;
   margin-right: 8px;
-  background-color: #a5a0a0;
-  color: white;
+  color:black;
   max-height: auto;
+  margin-bottom: 8px;
 }
 
 .btnSubmit {
@@ -167,9 +167,13 @@ th {
 .Date--picker-range{
   width: 130px;
 }
+.date-range{
+  display: flex;
+  justify-content: center;
+}
 .txt-right{
   display: flex;
-justify-content: end;
+  justify-content: end;
 
 }
 .item-center{
@@ -187,3 +191,12 @@ justify-content: end;
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+/* @media screen and (max-width: 480px) {
+  .date-range{
+    display: flex;
+    justify-content: space-between;
+  }
+} */
+
+
