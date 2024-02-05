@@ -110,7 +110,7 @@ try {
     const response = await newData.save();
     // console.log(respons);
     const responsJSON = JSON.stringify(response);
-    console.log(responsJSON);
+    // console.log(responsJSON);
     // const user = JSON.parse(JSON.stringify(respons.username));
     // const userEmail = JSON.parse(JSON.stringify(respons.email));
     // const savedDate = JSON.parse(JSON.stringify(respons.date));

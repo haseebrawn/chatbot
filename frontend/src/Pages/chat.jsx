@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../Wrraper.css";
 import axios from "axios";
 import { FaArrowUp } from "react-icons/fa";
-import { SiAddthis } from "react-icons/si";
+import UserStatus from "./UserStatus";
 
-const Chat = ({ isLoggedIn }) => {
+const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -19,12 +20,7 @@ const Chat = ({ isLoggedIn }) => {
 
   const sendMessage = async () => {
     try {
-      // Check if the user is logged in before sending a message
-      if (!isLoggedIn) {
-        console.log("User not logged in. Cannot send message.");
-        return;
-      }
-
+    
       // Assuming the data is stored in localStorage as 'LogedUser'
       const storedData = localStorage.getItem("LogedUser");
       // Parse the stored string to an object
@@ -46,7 +42,7 @@ const Chat = ({ isLoggedIn }) => {
         email: email,
         id: user_id,
       });
-  console.log(response);
+      // console.log(response);
       // Extract the bot response from the API response
       const botResponse = response.data.reply;
       console.log(botResponse);
@@ -126,16 +122,8 @@ const Chat = ({ isLoggedIn }) => {
   };
 
   return (
-    <div className="App">
-      <div className="chat-container">
-        <div className="agent-info-wrapper">
-          {/* <SiAddthis /> */}
-          {/* <img src='../../public/Layer2.jpg'/> */}
-          <img src={process.env.PUBLIC_URL + "/Layer2.jpg"} alt="Image" />
-          <div className="agent-info-details">
-            <span className="support-agent-designation">Provelopers</span>
-          </div>
-        </div>
+    <div>
+      <div>
         <div className="messages">
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`} id="msg_text">
@@ -149,16 +137,7 @@ const Chat = ({ isLoggedIn }) => {
             </div>
           ))}
         </div>
-        {/* <div className="messages">
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.type}`} id="msg_text">
-              <strong>{msg.text.slice(0, 7)}</strong> 
-              {msg.text.slice(7)}
-            </div>
-          ))}
-        </div> */}
-        {/* Conditionally render the input field based on login status */}
-        {isLoggedIn && (
+        {/* Conditionally render the input field based on login status */} 
           <div className="input-container">
             <textarea
               className="Chat_textArea"
@@ -173,7 +152,7 @@ const Chat = ({ isLoggedIn }) => {
               <FaArrowUp />
             </button>
           </div>
-        )}
+       
       </div>
     </div>
   );
