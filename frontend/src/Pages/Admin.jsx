@@ -247,7 +247,7 @@ const AdminPage = () => {
                         className="btnAdmin"
                         onClick={() => {
                           setModalShow(true);
-                          setSelectedUser(user.username);
+                          setSelectedUser(user._id);
                         }}
                       >
                         View
@@ -272,7 +272,7 @@ const AdminPage = () => {
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        username={selectedUser}
+        user_id={selectedUser}
       />
     </Container>
   );

@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "build": "wp-scripts build",
-    "start": "wp-scripts start"
+    "build": "react-scripts build",
+    "start": "react-scripts start"
   },
   "dependencies": {
     "@wordpress/scripts": "^27.1.0",

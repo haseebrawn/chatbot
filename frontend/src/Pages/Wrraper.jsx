@@ -21,9 +21,9 @@ const WrapperComponent = () => {
         <Login handleLogin={handleLogin}/>
         </div>
       )}
-      <div className="chat-container">
+      {/* <div className="chat-container"> */}
         <Chat isLoggedIn={isLoggedIn}/>
-      </div>
+      {/* </div> */}
     </div>
   );
 };
