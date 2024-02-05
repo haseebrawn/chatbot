@@ -1,6 +1,6 @@
 .wrapper {
-  position: relative;
-  height: 100vh;
+  /* position: relative; */
+  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,20 +9,8 @@
 }
 
 .login-container {
-  z-index: 1;
+  /* z-index: 9999; */
   position: absolute;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 15px;
-  padding-top: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  /* margin-top: 150px;
-  margin-right: 100px; */
-  
 }
 .login_textarea{
   flex: 1;
@@ -78,7 +66,7 @@
 }
 .agent-info-details{
   color: #bbb4b4;
-  padding: 8px;
+  /* padding: 8px; */
   color: rgb(30, 29, 29);
   margin-left: 10px;
 }

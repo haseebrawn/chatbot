@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Chat from './chat';
 import '../Wrraper.css';
 import Login from './login';
+import Header from './Header';
+import '../App.css';
 
 const WrapperComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,16 +17,25 @@ const WrapperComponent = () => {
   };
 
   return (
+
+    <>
+      <Header isLoggedIn={isLoggedIn}/>
+  
+    
     <div className="wrapper">
-      {!isLoggedIn && (
-        <div className="login-container"  >
-        <Login handleLogin={handleLogin}/>
-        </div>
-      )}
-      {/* <div className="chat-container"> */}
-        <Chat isLoggedIn={isLoggedIn}/>
-      {/* </div> */}
-    </div>
+
+    {!isLoggedIn ? (
+      <div className="login-container">
+        <Login handleLogin={handleLogin} />
+      </div>
+    ) : (
+      <div className="chat-container">
+        <Chat/>
+      </div>
+    )}
+  </div>
+  </>
+
   );
 };
 

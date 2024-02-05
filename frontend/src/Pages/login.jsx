@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../Wrraper.css";
 import axios from "axios";
+import { Container } from "@mui/material";
 const Login = ({ handleLogin }) => {
   const [formData, setFormData] = useState({
     username: "",
@@ -37,13 +38,14 @@ const Login = ({ handleLogin }) => {
         formData
       );
       const parsedResponse = JSON.parse(response.data.response);
-      console.log(parsedResponse);
-      // console.log(parsedResponse._id);
+      // console.log(parsedResponse);
       localStorage.setItem('LogedUser', JSON.stringify(parsedResponse));
+
+      handleLogin();
     } catch (error) {
       console.error("Error:", error);
     }
-    handleLogin();
+    // handleLogin();
   };
 
   const isFormFilled = () =>
@@ -60,7 +62,9 @@ const Login = ({ handleLogin }) => {
     };
 
   return (
+    <Container>
     <form onSubmit={handleSubmit} className="main_form">
+
       <input
         type="text"
         id="username"
@@ -93,6 +97,7 @@ const Login = ({ handleLogin }) => {
         Submit
       </button>
     </form>
+    </Container>
   );
 };
 
