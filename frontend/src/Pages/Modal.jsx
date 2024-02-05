@@ -11,27 +11,26 @@ function MyVerticallyCenteredModal(props) {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    // console.log('Modal opened for user:', props.username);
-    handleViewClick(props.username);
-  }, [props.username]);
+    console.log('Modal opened for user:', props.user_id);
+    handleViewClick(props.user_id);
+  }, [props.user_id]);
 
-  const handleViewClick = async (username) => {
-    // console.log('Fetching chat data for user:', username);
-    if (username) {
+  const handleViewClick = async (user_id) => {
+    console.log('Fetching chat data for user:', user_id);
+    if (user_id) {
       try {
         const response = await axios.get(
-          `http://localhost:10000/completions/${username}`
+          `http://localhost:10000/completions/${user_id}`
         );
         const data = response.data;
         const queriesArray = Array.isArray(data) ? data : [data];
-
         const extractedData = queriesArray.map((data) => ({
           content: JSON.parse(data.query[0])[0].content,
           response: data.response,
         }));
         // console.log('Hi' ,extractedData)
         setQueries(extractedData);
-        setSelectedUser(username);
+        setSelectedUser(user_id);
         setModalVisible(true);
       } catch (error) {
         console.error("Error fetching data:", error);

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../Wrraper.css";
 import axios from "axios";
+import { FaArrowUp } from "react-icons/fa";
+import { SiAddthis } from "react-icons/si";
 
 const Chat = ({ isLoggedIn }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -14,7 +15,7 @@ const Chat = ({ isLoggedIn }) => {
       sendMessage(inputMessage);
       setInputMessage("");
     }
-  }
+  };
 
   const sendMessage = async () => {
     try {
@@ -23,45 +24,53 @@ const Chat = ({ isLoggedIn }) => {
         console.log("User not logged in. Cannot send message.");
         return;
       }
-  
-      const username = localStorage.getItem("username");
-      const email = localStorage.getItem("email");
-      const response = await axios.post(
-        "http://localhost:10000/completions",
-        {
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "system",
-              content: inputMessage,
-            },
-          ],
-          username: username,
-          email: email,
-        }
-      );
-      
+
+      // Assuming the data is stored in localStorage as 'LogedUser'
+      const storedData = localStorage.getItem("LogedUser");
+      // Parse the stored string to an object
+      const parsedResponse = JSON.parse(storedData);
+
+      // Retrieve individual values
+      const username = parsedResponse.username;
+      const email = parsedResponse.email;
+      const user_id = parsedResponse._id;
+      const response = await axios.post("http://localhost:10000/completions", {
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: inputMessage,
+          },
+        ],
+        username: username,
+        email: email,
+        id: user_id,
+      });
+  console.log(response);
       // Extract the bot response from the API response
       const botResponse = response.data.reply;
       console.log(botResponse);
-  
+
       // Split the bot response into paragraphs
-      const paragraphs = botResponse.split('\n');
-  
+      const paragraphs = botResponse.split("\n");
+
       // Remove empty paragraphs
-      const filteredParagraphs = paragraphs.filter(paragraph => paragraph.trim() !== '');
-  
+      const filteredParagraphs = paragraphs.filter(
+        (paragraph) => paragraph.trim() !== ""
+      );
+
       // Prepare the data to send to the backend for storage
       const chatData = {
         query: inputMessage,
         response: botResponse,
         username: username,
+        id: user_id,
         email: email,
       };
-  
+
       // Send the chat data to the backend for storage
       localStorage.setItem("chatData", JSON.stringify(chatData));
-  
+
       // Create a new array of message objects
       const botMessages = [
         {
@@ -69,32 +78,33 @@ const Chat = ({ isLoggedIn }) => {
           type: "user",
         },
         {
-          text: filteredParagraphs.length > 0 ? (
-            <>
-              {filteredParagraphs[0]}
-              {filteredParagraphs.slice(1).map((paragraph, index) => (
-                <div key={index}>{paragraph}</div>
-              ))}
-            </>
-          ) : (
-            // Handle the case where there is no bot response
-            "No response from the bot."
-          ),
+          text:
+            filteredParagraphs.length > 0 ? (
+              <>
+                <div className="paragraph-div">{filteredParagraphs[0]} </div>
+                {filteredParagraphs.slice(1).map((paragraph, index) => (
+                  <div key={index} className="paragraph-div">
+                    {paragraph}
+                  </div>
+                ))}
+              </>
+            ) : (
+              // Handle the case where there is no bot response
+              "No response from the bot."
+            ),
           type: "bot",
         },
       ];
-  
+
       // Update the messages state with the new messages
       setMessages([...messages, ...botMessages]);
-  
+
       setInputMessage("");
     } catch (error) {
       console.error("An Error occurred:", error);
     }
   };
-  
-  
-  
+
   const handleInputChange = (e) => {
     setInputMessage(e.target.value);
   };
@@ -102,75 +112,43 @@ const Chat = ({ isLoggedIn }) => {
     await sendMessage();
   };
 
+  const calculateRowCount = () => {
+    const lineHeight = 20; // Adjust this based on your textarea's line-height
+    const minRows = 1;
+    const maxRows = 4;
+
+    const textareaRows = Math.min(
+      maxRows,
+      Math.max(minRows, Math.ceil(inputMessage.length / 30))
+    ); // Adjust the character count as needed
+
+    return textareaRows;
+  };
+
   return (
     <div className="App">
       <div className="chat-container">
-        <div className="chat-window-header default-theme-window-header">
-          <div
-            className="right-chat-window-header"
-            id="chat-window-background2"
-          >
-            <p id="chatWindowHeaderText2" className="previewText">
-              Welcome To REVE Chat
-            </p>
-            <div className="icons chat-close-button waiting-window-chat-close">
-              <a href="#" className="tooltips">
-                <i className="icon-Close-Chat-new"></i>
-                <span>Close Chat</span>
-              </a>
-            </div>
-            <div className="icons minimize_button">
-              <a href="#" className="tooltips">
-                <i className="icon-chevron-down"></i>
-                <span>Minimize</span>
-              </a>
-            </div>
-          </div>
-          <div id="voice-panel-module">
-            <div className="voice-call-div">
-              <div className="agent-info-wrapper">
-                <div className="agent-profile-img"></div>
-                <div className="agent-profile-img-modern">
-                  <div className="profile-img-content">
-                    <div className="profile-img"></div>
-                  </div>
-                </div>
-                <div className="agent-info-text">
-                  <div className="agent-info-details">
-                    <p className="support-agent-name">REVE Chatbot</p>
-                    <span className="support-agent-designation">
-                      Provelopers
-                    </span>
-                  </div>
-                  <ul className="topbar-icon-list">
-                    <li className="icons chat-close-button">
-                      <a href="#" className="tooltips">
-                        <i className="icon-Close-Chat-new"></i>
-                        <span>Close Chat</span>
-                      </a>
-                    </li>
-                    <li className="icons minimize_button">
-                      <a href="#" className="tooltips">
-                        <i className="icon-chevron-down"></i>
-                        <span>Minimize</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="company-logo-img"></div>
-              </div>
-            </div>
+        <div className="agent-info-wrapper">
+          {/* <SiAddthis /> */}
+          {/* <img src='../../public/Layer2.jpg'/> */}
+          <img src={process.env.PUBLIC_URL + "/Layer2.jpg"} alt="Image" />
+          <div className="agent-info-details">
+            <span className="support-agent-designation">Provelopers</span>
           </div>
         </div>
         <div className="messages">
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`} id="msg_text">
-              {(msg.type === 'user') ? <strong>User:</strong> : <strong>ChatBot:</strong>}
-               <br />
-                {msg.text}
-              </div>
-            ))}
-          </div>
+              {msg.type === "user" ? (
+                <strong>User:</strong>
+              ) : (
+                <strong>ChatBot:</strong>
+              )}
+              <br />
+              {msg.text}
+            </div>
+          ))}
+        </div>
         {/* <div className="messages">
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`} id="msg_text">
@@ -180,22 +158,22 @@ const Chat = ({ isLoggedIn }) => {
           ))}
         </div> */}
         {/* Conditionally render the input field based on login status */}
-      {isLoggedIn && (
-        <div className="input-container">
-          <textarea
-            type="text"
-            placeholder="Search"
-            value={inputMessage}
-            cols="40"
-            rows="1.4"
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-          />
-          <button onClick={handleSubmit} className="btnSubmit">
-            Send
-          </button>
-        </div>
-      )}
+        {isLoggedIn && (
+          <div className="input-container">
+            <textarea
+              className="Chat_textArea"
+              type="text"
+              placeholder="Search"
+              value={inputMessage}
+              rows={calculateRowCount()}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
+            <button onClick={handleSubmit} className="btnSubmit">
+              <FaArrowUp />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

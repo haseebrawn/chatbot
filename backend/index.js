@@ -3,7 +3,7 @@ import multer from "multer";
 import cors from "cors";
 import 'dotenv/config';
 import passport from "passport";
-import {completions, completionsUsername, users, saveUserData, searchQuery}from "./controllers/controllers.js";
+import {completions, completionsUserId, users, saveUserData, searchQuery}from "./controllers/controllers.js";
 import {
   Strategy as JWTStrategy,
   ExtractJwt,
@@ -27,7 +27,7 @@ app.use(passport.initialize());
 
 
 app.post("/completions", completions);
-app.get("/completions/:username",completionsUsername);
+app.get("/completions/:user_id",completionsUserId);
 app.get("/api/users",  users);
 app.post("/api/saveUsersData", upload.none(),  saveUserData );
 app.get("/api/search",  searchQuery);

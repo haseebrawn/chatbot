@@ -31,13 +31,15 @@ const Login = ({ handleLogin }) => {
     }
 
     try {
-      console.log(formData);
+      // console.log(formData);
       const response = await axios.post(
         "http://localhost:10000/api/saveUsersData",
         formData
       );
-      localStorage.setItem("username", response.data.username);
-      localStorage.setItem("email", response.data.email);
+      const parsedResponse = JSON.parse(response.data.response);
+      console.log(parsedResponse);
+      // console.log(parsedResponse._id);
+      localStorage.setItem('LogedUser', JSON.stringify(parsedResponse));
     } catch (error) {
       console.error("Error:", error);
     }
@@ -87,7 +89,7 @@ const Login = ({ handleLogin }) => {
         onChange={handleChange}
         className="login_textarea"
       ></textarea>
-      <button type="submit" className="btnSubmit">
+      <button type="submit" className="btnLoginSubmit">
         Submit
       </button>
     </form>
