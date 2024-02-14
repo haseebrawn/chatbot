@@ -20,7 +20,7 @@ function MyVerticallyCenteredModal(props) {
     if (user_id) {
       try {
         const response = await axios.get(
-          `http://localhost:10000/completions/${user_id}`
+          `http://localhost:3000/completions/${user_id}`
         );
         const data = response.data;
         const queriesArray = Array.isArray(data) ? data : [data];
