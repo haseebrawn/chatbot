@@ -7,7 +7,7 @@ const openAiSecretkey = process.env.API_KEY;
 
 // Chat API
 export const completions = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const model = req.body.model;
     const messages = req.body.messages;
@@ -73,7 +73,7 @@ export const completions = async (req, res) => {
 // Get Api EndPoint by user ID
 export const completionsUserId = async (req, res) => {
   const { user_id } = req.params;
-  console.log(user_id);
+  // console.log(user_id);
 
   try {
     const messages = await MessageSchema.find({ user_id: user_id });
