@@ -35,7 +35,7 @@ const Chat = () => {
       const user_id = parsedResponse._id;
 
       const response = await axios.post(
-        "https://0ea1-182-185-201-57.ngrok-free.app/completions",
+        "https://0ecb-182-185-201-57.ngrok-free.app/completions",
         {
           model: "gpt-3.5-turbo",
           messages: [
