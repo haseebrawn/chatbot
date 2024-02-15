@@ -57,6 +57,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         const response = await axios.get("https://0ecb-182-185-201-57.ngrok-free.app/api/users");
         const userData = response.data;
         const sortedUsers = userData.sort((a, b) =>

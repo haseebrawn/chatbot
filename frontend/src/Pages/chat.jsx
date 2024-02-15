@@ -33,7 +33,6 @@ const Chat = () => {
       const username = parsedResponse.username;
       const email = parsedResponse.email;
       const user_id = parsedResponse._id;
-
       const response = await axios.post(
         "https://0ecb-182-185-201-57.ngrok-free.app/completions",
         {
