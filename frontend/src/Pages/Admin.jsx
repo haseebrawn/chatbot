@@ -57,7 +57,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/users");
+        const response = await axios.get("https://0ecb-182-185-201-57.ngrok-free.app/api/users");
         const userData = response.data;
         const sortedUsers = userData.sort((a, b) =>
           a.username.toLowerCase().localeCompare(b.username.toLowerCase())
@@ -144,7 +144,7 @@ const AdminPage = () => {
     setSearchQuery(query);
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/search?query=${query}`
+        `https://0ecb-182-185-201-57.ngrok-free.app/api/search?query=${query}`
       );
       const searchData = response.data;
       setUsers(searchData);

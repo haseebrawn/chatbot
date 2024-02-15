@@ -35,7 +35,7 @@ const Chat = () => {
       const user_id = parsedResponse._id;
 
       const response = await axios.post(
-        "https://0ea1-182-185-201-57.ngrok-free.app/completions",
+        "https://0ecb-182-185-201-57.ngrok-free.app/completions",
         {
           model: "gpt-3.5-turbo",
           messages: [
@@ -51,7 +51,7 @@ const Chat = () => {
       );
 
       const botResponse = response.data.reply;
-
+      // console.log(botResponse);
       const paragraphs = botResponse.split("\n");
       const filteredParagraphs = paragraphs.filter(
         (paragraph) => paragraph.trim() !== ""
