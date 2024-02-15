@@ -21,6 +21,7 @@ function MyVerticallyCenteredModal(props) {
       try {
         const response = await axios.get(
           `https://0ecb-182-185-201-57.ngrok-free.app/completions/${user_id}`
+
         );
         const data = response.data;
         const queriesArray = Array.isArray(data) ? data : [data];

@@ -51,7 +51,7 @@ const Chat = () => {
       );
 
       const botResponse = response.data.reply;
-      // console.log(botResponse);
+
       const paragraphs = botResponse.split("\n");
       const filteredParagraphs = paragraphs.filter(
         (paragraph) => paragraph.trim() !== ""
