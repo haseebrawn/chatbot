@@ -17,7 +17,7 @@ const Header = ({isLoggedIn}) => {
   }, []);
   return (
 
-            <div className="agent-info-wrapper ">
+            <div className="agent-info-wrapper">
             <img src="images/Layer-2.jpeg" width={39} height={43} />
                 <div>
                     <div>
