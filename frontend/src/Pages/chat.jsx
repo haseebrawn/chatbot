@@ -37,6 +37,7 @@ const Chat = () => {
 
       const response = await axios.post(
         "https://be93-2400-adc5-10a-e400-ec1b-fb69-e147-1d4c.ngrok-free.app/completions",
+
         {
           model: "gpt-3.5-turbo",
           messages: [
