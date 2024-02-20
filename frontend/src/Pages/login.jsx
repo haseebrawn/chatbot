@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../Wrraper.css";
 import axios from "axios";
 import { Container } from "@mui/material";
-import{Row, Col} from 'react-bootstrap';
 const Login = ({ handleLogin }) => {
   const [formData, setFormData] = useState({
     username: "",
@@ -35,14 +34,13 @@ const Login = ({ handleLogin }) => {
     try {
       // console.log(formData);
       const response = await axios.post(
-        "https://0ea1-182-185-201-57.ngrok-free.app/api/saveUsersData",
+        "https://be93-2400-adc5-10a-e400-ec1b-fb69-e147-1d4c.ngrok-free.app/api/saveUsersData",
         // "http://localhost:3000/api/saveUsersData",
         formData
       );
       const parsedResponse = JSON.parse(response.data.response);
       // console.log(parsedResponse);
       localStorage.setItem('LogedUser', JSON.stringify(parsedResponse));
-
       handleLogin();
     } catch (error) {
       console.error("Error:", error);
@@ -64,46 +62,8 @@ const Login = ({ handleLogin }) => {
     };
 
   return (
-    // <Container>
-    // <form onSubmit={handleSubmit} className="main_form">
 
-    //   <input
-    //     type="text"
-    //     id="username"
-    //     name="username"
-    //     className="login_input"
-    //     placeholder="username"
-    //     value={formData.username}
-    //     onChange={handleChange}
-    //   />
-    //    <input
-    //     type="email"
-    //     id="email"
-    //     name="email"
-    //     className="login_input"
-    //     placeholder="email"
-    //     value={formData.email}
-    //     onChange={handleChange}
-    //     required
-    //   />
-    //   <textarea
-    //     type="text"
-    //     id="message"
-    //     name="message"
-    //     placeholder="message"
-    //     value={formData.message}
-    //     onChange={handleChange}
-    //     className="login_textarea"
-    //   ></textarea>
-    //   <button type="submit" className="btnLoginSubmit">
-    //     Submit
-    //   </button>
-    // </form>
-    // </Container>
     <Container>
-    {/* <Row>
-    <Col xs={12} sm={6}> */}
-
     <form onSubmit={handleSubmit} className="main_form">
       
           <input

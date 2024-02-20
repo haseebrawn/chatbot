@@ -1,13 +1,13 @@
 .wrapper {
   /* position: relative; */
-  height: 85vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 500px;
+  /* width: 450px; */
   margin: 0 auto;
-  /* border: 1px solid antiquewhite; */
+  /* border: 1px solid #bbb4b4; */
   
 }
 
@@ -24,18 +24,26 @@
   color:black;
   max-height: auto;
   margin-top: 4px !important;
-  width: 198px !important;
+  width: 260px !important;
 }
+.login_textarea:focus{
+  outline: none;
+}
+
 .login_input{
   flex: 1;
   padding: 8px;
   margin-bottom: 3px;
   border-radius: 5px;
   border: 1px solid #999595;
-  margin-right: 8px;
+  /* margin-right: 8px; */
   color:black;
   max-height: auto;
   margin-bottom: 4px;
+  width: 260px;
+}
+.login_input:focus{
+  outline: none;
 }
 
 .login-container h1 {

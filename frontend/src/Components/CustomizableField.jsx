@@ -1,9 +1,10 @@
 import React from 'react'
 
-const CustomizableField = ({ inputType, inputValue, onChangeEvent, inputPlaceholder, minDate }) => {
+const CustomizableField = ({ inputType, inputValue, onChangeEvent, inputPlaceholder, minDate, searchClassName }) => {
   return (
     <div>
       <input
+      className ={searchClassName }
         type={inputType}
         value={inputValue}
         onChange={(e) => {

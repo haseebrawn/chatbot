@@ -38,6 +38,10 @@ const AdminPage = () => {
   // date for state
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  // Date Select state button
+  const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState(true);
+  // Create a ref for the date field
+  //  const startDateRef = useRef();
 
   // valid date range select useeffect
   useEffect(() => {
@@ -57,7 +61,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/users");
+        const response = await axios.get("https://be93-2400-adc5-10a-e400-ec1b-fb69-e147-1d4c.ngrok-free.app/api/users");
         const userData = response.data;
         const sortedUsers = userData.sort((a, b) =>
           a.username.toLowerCase().localeCompare(b.username.toLowerCase())
@@ -83,10 +87,12 @@ const AdminPage = () => {
 
   const handleStartDateChange = (newStartDate) => {
     setStartDate(newStartDate);
+    setIsSearchButtonDisabled(!newStartDate || !endDate);
   };
 
   const handleEndDateChange = (newEndDate) => {
     setEndDate(newEndDate);
+    setIsSearchButtonDisabled(!startDate || !newEndDate);
   };
 
   const handleFilterByDateRange = () => {
@@ -144,7 +150,7 @@ const AdminPage = () => {
     setSearchQuery(query);
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/search?query=${query}`
+        `https://be93-2400-adc5-10a-e400-ec1b-fb69-e147-1d4c.ngrok-free.app/api/search?query=${query}`
       );
       const searchData = response.data;
       setUsers(searchData);
@@ -173,6 +179,7 @@ const AdminPage = () => {
                   inputPlaceholder=""
                   onChangeEvent={handleStartDateChange}
                   minDate={startDate}
+                  searchClassName="SearchBar" 
                 />
               </div>
             </CCol>
@@ -183,14 +190,20 @@ const AdminPage = () => {
                   inputType="date"
                   inputPlaceholder=""
                   onChangeEvent={handleEndDateChange}
+                  searchClassName="SearchBar"
                 />
               </div>
             </CCol>
             <CCol xs={2} lg={2} className="txt-right justify-content-lg-start mt-3 mt-lg-0">
               <Button
-                clickHandler={handleFilterByDateRange}
+                clickHandler={() => {
+                if (startDate && endDate) {
+                handleFilterByDateRange();
+                 }
+               }}
                 stylingClass="btnDateSelect"
                 title="Search"
+                disabled={isSearchButtonDisabled}
               />
             </CCol>
             <CCol lg={2}></CCol>
@@ -207,6 +220,7 @@ const AdminPage = () => {
                 inputValue={searchQuery}
                 onChangeEvent={handleSearch}
                 inputPlaceholder="Search users..."
+                searchClassName="SearchBar"
               />
             </CCardHeader>
             <CTable responsive>

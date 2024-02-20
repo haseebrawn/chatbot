@@ -20,7 +20,7 @@ function MyVerticallyCenteredModal(props) {
     if (user_id) {
       try {
         const response = await axios.get(
-          `http://localhost:3000/completions/${user_id}`
+          `https://be93-2400-adc5-10a-e400-ec1b-fb69-e147-1d4c.ngrok-free.app/completions/${user_id}`
         );
         const data = response.data;
         const queriesArray = Array.isArray(data) ? data : [data];
@@ -63,14 +63,13 @@ function MyVerticallyCenteredModal(props) {
                 {data.response.split("\n").map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
                 ))}
-                {/* <p>{data.response}</p> */}
               </div>
             ))}
           </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide} className="btn_model">Close</Button>
       </Modal.Footer>
     </Modal>
   );
